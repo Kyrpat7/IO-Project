@@ -106,4 +106,38 @@ public class Input
 
         return count;
     }
+
+    private String filterLine(String line)
+    {
+        line = line.replaceAll("^[\\t0-9\\.]+", "");
+
+        for (String keyword : keywords)
+            line = line.replaceFirst(keyword + " ", "");
+
+        return line;
+    }
+
+    private boolean startsWithActor(String line)
+    {
+        for (String actor : actors)
+        {
+            if (line.length() >= actor.length() &&  actor.equals(line.substring(0, actor.length()).toUpperCase()))
+                return true;
+        }
+
+        return false;
+    }
+
+    public ArrayList<String> getBuggableLines()
+    {
+        ArrayList<String> result = new ArrayList<String>();
+
+        for (String step : steps.split("\n"))
+        {
+            if (!startsWithActor(filterLine(step)))
+                result.add(step);
+        }
+
+        return result;
+    }
 }
