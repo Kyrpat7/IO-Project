@@ -82,4 +82,28 @@ public class Input
     {
         return steps == "" ? 0 : steps.split("\n").length;
     }
+
+    private boolean containsKeyword(String line)
+    {
+        for (String keyword : keywords)
+        {
+            if (line.contains(keyword))
+                return true;
+        }
+
+        return false;
+    }
+
+    public int getConditionalDecisionCount()
+    {
+        int count = 0;
+
+        for (String step : steps.split("\n"))
+        {
+            if (containsKeyword(step.toUpperCase()))
+                count++;
+        }
+
+        return count;
+    }
 }
