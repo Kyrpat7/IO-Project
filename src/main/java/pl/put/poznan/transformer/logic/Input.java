@@ -78,5 +78,8 @@ public class Input
         return steps;
     }
 
-
+    public int getStepsCount()
+    {
+        return steps == "" ? 0 : steps.split("\n").length;
+    }
 }
