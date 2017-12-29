@@ -26,7 +26,7 @@ public class MainWindow {
                 int returnVal = fc.showDialog(mainPanel, "Wybierz plik");
                 if (returnVal == JFileChooser.APPROVE_OPTION){
                     file = fc.getSelectedFile();
-                    System.out.println("Otwieranie pliku");
+                    System.out.println("Otwieranie pliku " + file);
                 }
                 else
                 {
