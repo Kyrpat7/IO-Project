@@ -3,7 +3,11 @@ package pl.put.poznan.transformer.app;
 import pl.put.poznan.transformer.logic.Input;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.plaf.ComboBoxUI;
 import java.io.File;
+import java.io.FileFilter;
+import java.util.stream.IntStream;
 
 /**
  * Created by Kuba on 28.12.2017.
@@ -18,6 +22,12 @@ public class MainWindow {
     private JList<String> list1;
     private JLabel scenarioTitle;
     private JScrollPane scrollPane;
+    private JLabel scenarioLevelsLabel;
+    private JLabel scenarioLevel;
+    private JLabel levelSelectionLabel;
+    private JComboBox levelSelectionBox;
+    private JPanel rightPanel;
+    private JSeparator separator;
     private File file;
 
     public MainWindow() {
@@ -43,6 +53,9 @@ public class MainWindow {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         fc = new JFileChooser();
+        FileNameExtensionFilter filter = new FileNameExtensionFilter("Plik tekstowy (*.txt)", "txt");
+        fc.setAcceptAllFileFilterUsed(false);
+        fc.setFileFilter(filter);
     }
 
     private void loadFile(File file){
@@ -52,5 +65,10 @@ public class MainWindow {
         for (String s : input.getSteps().split("\n"))
             model.addElement(s);
         list1.setModel(model);
+    }
+
+    private void createUIComponents() {
+        Integer[] numbers = IntStream.range(0,10).boxed().toArray(Integer[]::new);
+        levelSelectionBox = new JComboBox<>(numbers);
     }
 }
