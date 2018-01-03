@@ -140,5 +140,38 @@ public class Input
 
         return result;
     }
+
+
+    public ArrayList<String> getNumberedSteps()
+    {
+        int max = steps.split("\n").length;
+        int[] tab = new int[max];
+        for (int i = 0; i < max; i++)
+            tab[i] = 0;
+        ArrayList<String> result = new ArrayList<String>();
+
+        for (String step : steps.split("\n"))
+        {
+            int p = 0;
+            String numbers = "";
+            while((step.charAt(p))== '\t')
+                {
+                    p++;
+                }
+            tab[p]++;
+            for (int i = p + 1; i < max; i++)
+            tab[i] = 0;
+            StringBuilder bufferedText = new StringBuilder(step);
+            for(int i = 0; i < p + 1; i++)
+                {
+                   numbers = numbers + tab[p] + ".";
+                }
+            bufferedText.insert(p,numbers);
+            step = bufferedText.substring(0);
+            result.add(step);
+        }
+
+        return result;
+    }
 }
 //git test 3
