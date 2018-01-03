@@ -173,7 +173,6 @@ public class Input
                 }
             bufferedText.insert(p,numbers);
             step = bufferedText.substring(0)+"\n";
-            //step = step.replaceAll(",","");
 
             result = result + step;
         }
@@ -182,4 +181,3 @@ public class Input
 
 
 }
-//git test 3
