@@ -142,13 +142,18 @@ public class Input
     }
 
 
-    public ArrayList<String> getNumberedSteps()
+    public String getNumberedSteps()
     {
         int max = steps.split("\n").length;
         int[] tab = new int[max];
         for (int i = 0; i < max; i++)
             tab[i] = 0;
-        ArrayList<String> result = new ArrayList<String>();
+        String result = "";
+
+        result += title + "\n";
+        for (String a : actors)
+            result += a + " ";
+        result += "\n";
 
         for (String step : steps.split("\n"))
         {
@@ -164,14 +169,17 @@ public class Input
             StringBuilder bufferedText = new StringBuilder(step);
             for(int i = 0; i < p + 1; i++)
                 {
-                   numbers = numbers + tab[p] + ".";
+                   numbers = numbers + tab[i] + ".";
                 }
             bufferedText.insert(p,numbers);
-            step = bufferedText.substring(0);
-            result.add(step);
-        }
+            step = bufferedText.substring(0)+"\n";
+            //step = step.replaceAll(",","");
 
+            result = result + step;
+        }
         return result;
     }
+
+
 }
 //git test 3
