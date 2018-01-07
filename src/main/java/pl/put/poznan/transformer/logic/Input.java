@@ -3,6 +3,7 @@ package pl.put.poznan.transformer.logic;
 import java.io.*;
 import java.util.ArrayList;
 
+
 public class Input
 {
     private String title;
@@ -14,6 +15,12 @@ public class Input
         add("FOR EACH");
     }};
 
+
+    /**
+     * Wczytuje scenariusz z pliku tekstowego
+     *
+     * @param fileName nazwa pliku z ktorego ma zostac wczytany scenariusz
+     */
     public Input(String fileName)
     {
         actors = new ArrayList<String>();
