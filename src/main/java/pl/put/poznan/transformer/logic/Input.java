@@ -185,6 +185,4 @@ public class Input
         }
         return result;
     }
-//koment
-
 }

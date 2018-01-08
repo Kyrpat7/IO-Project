@@ -30,7 +30,7 @@ public class MainWindow {
     private JPanel rightPanel;
     private JButton pobierzKrokiNieZaczynająceButton;
     private JButton pobierzZNumeracjąKrokówButton;
-    private JLabel scenarioDepth;
+    private JLabel scenarioCond;
     private File file;
 
     public MainWindow() {
@@ -68,7 +68,8 @@ public class MainWindow {
         for (String s : input.getSteps().split("\n"))
             model.addElement(s);
         list1.setModel(model);
-        scenarioSteps.setText(input.getSteps().toString());
+        scenarioSteps.setText(new Integer(input.getStepsCount()).toString());
+        scenarioCond.setText(new Integer(input.getConditionalDecisionCount()).toString());
     }
 
     private void createUIComponents() {
