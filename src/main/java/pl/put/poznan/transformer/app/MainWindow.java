@@ -13,25 +13,32 @@ import java.util.stream.IntStream;
  * Created by Kuba on 28.12.2017.
  */
 public class MainWindow {
-    private static JFileChooser fc;
+    private JFileChooser fc;
     private JPanel mainPanel;
+    private Input input;
     private JButton wczytajButton;
-    private JButton analizaButton;
+    private JButton podglądScenariuszaButton;
     private JPanel bottomPanel;
     private JPanel topPanel;
     private JList<String> list1;
     private JLabel scenarioTitle;
     private JScrollPane scrollPane;
     private JLabel scenarioLevelsLabel;
-    private JLabel scenarioLevel;
+    private JLabel scenarioSteps;
     private JLabel levelSelectionLabel;
     private JComboBox levelSelectionBox;
     private JPanel rightPanel;
-    private JSeparator separator;
+    private JButton pobierzKrokiNieZaczynająceButton;
+    private JButton pobierzZNumeracjąKrokówButton;
+    private JLabel scenarioDepth;
     private File file;
 
     public MainWindow() {
         wczytajButton.addActionListener(actionEvent -> {
+            fc = new JFileChooser();
+            FileNameExtensionFilter filter = new FileNameExtensionFilter("Plik tekstowy (*.txt)", "txt");
+            fc.setAcceptAllFileFilterUsed(false);
+            fc.setFileFilter(filter);
             int returnVal = fc.showDialog(mainPanel, "Wybierz plik");
             if (returnVal == JFileChooser.APPROVE_OPTION){
                 file = fc.getSelectedFile();
@@ -52,19 +59,16 @@ public class MainWindow {
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
-        fc = new JFileChooser();
-        FileNameExtensionFilter filter = new FileNameExtensionFilter("Plik tekstowy (*.txt)", "txt");
-        fc.setAcceptAllFileFilterUsed(false);
-        fc.setFileFilter(filter);
     }
 
     private void loadFile(File file){
-        Input input = new Input(file.toString());
+        input = new Input(file.toString());
         scenarioTitle.setText(input.getTitle());
         DefaultListModel<String> model = new DefaultListModel<>();
         for (String s : input.getSteps().split("\n"))
             model.addElement(s);
         list1.setModel(model);
+        scenarioSteps.setText(input.getSteps().toString());
     }
 
     private void createUIComponents() {
