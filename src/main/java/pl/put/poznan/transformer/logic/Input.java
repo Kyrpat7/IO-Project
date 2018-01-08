@@ -231,4 +231,22 @@ public class Input
         }
         return result;
     }
+
+    public String getSubScenarios(String[] steps, int depth)
+    {
+        String ret = "";
+
+        for (String i : steps)
+        {
+            int count = 0;
+
+            while (i.charAt(count) == '\t')
+                ++count;
+
+            if (count < (depth - 1))
+                ret += i;
+        }
+
+        return ret;
+    }
 }
