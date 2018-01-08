@@ -57,6 +57,10 @@ public class Input
         }
     }
 
+    /**
+     * Zwraca cały scenariusz
+     *
+     */
     public String toString()
     {
         String result = "";
@@ -70,26 +74,47 @@ public class Input
         return result;
     }
 
+    /**
+     * Zwraca tytuł scenariusza
+     *
+     */
     public String getTitle()
     {
         return title;
     }
 
+    /**
+     * Zwraca aktorów scenariusza
+     *
+     */
     public ArrayList<String> getActors()
     {
         return actors;
     }
 
+    /**
+     * Zwraca kroki scenariusza
+     *
+     */
     public String getSteps()
     {
         return steps;
     }
 
+    /**
+     * Zwraca liczbę kroków scenariusza
+     *
+     */
     public int getStepsCount()
     {
         return steps == "" ? 0 : steps.split("\n").length;
     }
 
+    /**
+     * Sprawdza czy ciąg znaków zawiera słowa kluczowe
+     *
+     * @param line rozpatrywany ciąg znaków
+     */
     private boolean containsKeyword(String line)
     {
         for (String keyword : keywords)
@@ -101,6 +126,10 @@ public class Input
         return false;
     }
 
+    /**
+     * Zwraca liczbę kroków zawierających słowo kluczowe
+     *
+     */
     public int getConditionalDecisionCount()
     {
         int count = 0;
@@ -114,6 +143,11 @@ public class Input
         return count;
     }
 
+    /**
+     * Zwraca przefiltrowany ciąg znaków - kasuje wszystkie znaki tabulacji, cyfry i kropki
+     *
+     * @param line rozpatrywany ciąg znaków
+     */
     private String filterLine(String line)
     {
         line = line.replaceAll("^[\\t0-9\\.]+", "");
@@ -124,6 +158,11 @@ public class Input
         return line;
     }
 
+    /**
+     * Sprawdza czy ciąg znaków rozpoczyna się od aktora
+     *
+     * @param line rozpatrywany ciąg znaków
+     */
     private boolean startsWithActor(String line)
     {
         for (String actor : actors)
@@ -135,6 +174,10 @@ public class Input
         return false;
     }
 
+    /**
+     * Zwraca kroki, które nie zaczynają się od aktora
+     *
+     */
     public ArrayList<String> getBuggableLines()
     {
         ArrayList<String> result = new ArrayList<String>();
@@ -148,7 +191,10 @@ public class Input
         return result;
     }
 
-
+    /**
+     * Zwraca ponumerowane kroki scenariusza
+     *
+     */
     public String getNumberedSteps()
     {
         int max = steps.split("\n").length;
@@ -167,17 +213,17 @@ public class Input
             int p = 0;
             String numbers = "";
             while((step.charAt(p))== '\t')
-                {
-                    p++;
-                }
+            {
+                p++;
+            }
             tab[p]++;
             for (int i = p + 1; i < max; i++)
-            tab[i] = 0;
+                tab[i] = 0;
             StringBuilder bufferedText = new StringBuilder(step);
             for(int i = 0; i < p + 1; i++)
-                {
-                   numbers = numbers + tab[i] + ".";
-                }
+            {
+                numbers = numbers + tab[i] + ".";
+            }
             bufferedText.insert(p,numbers);
             step = bufferedText.substring(0)+"\n";
 
@@ -185,6 +231,4 @@ public class Input
         }
         return result;
     }
-//koment
-
 }
