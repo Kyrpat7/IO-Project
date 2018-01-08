@@ -141,7 +141,7 @@ public class Input
 
         for (String step : steps.split("\n"))
         {
-            if (!startsWithActor(filterLine(step)))
+            if (!containsKeyword(step) && !startsWithActor(filterLine(step)))
                 result.add(step);
         }
 

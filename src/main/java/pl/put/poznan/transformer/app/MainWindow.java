@@ -5,6 +5,8 @@ import pl.put.poznan.transformer.logic.Input;
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.plaf.ComboBoxUI;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileFilter;
 import java.util.stream.IntStream;
@@ -31,6 +33,9 @@ public class MainWindow {
     private JButton pobierzKrokiNieZaczynająceButton;
     private JButton pobierzZNumeracjąKrokówButton;
     private JLabel scenarioCond;
+    private JLabel scenarioStepsLabel;
+    private JTextArea textArea1;
+    private JTextPane textPane1;
     private File file;
 
     public MainWindow() {
@@ -50,6 +55,21 @@ public class MainWindow {
                 System.out.println("Anulowano otwieranie pliku");
             }
         });
+
+        podglądScenariuszaButton.addActionListener(e -> {
+            textArea1.setText(input.getSteps());
+        });
+
+        pobierzZNumeracjąKrokówButton.addActionListener(e -> {
+            textArea1.setText(input.getNumberedSteps());
+        });
+
+        pobierzKrokiNieZaczynająceButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                for (String s : input.getBuggableLines())
+                    textArea1.append(s);
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -64,12 +84,10 @@ public class MainWindow {
     private void loadFile(File file){
         input = new Input(file.toString());
         scenarioTitle.setText(input.getTitle());
-        DefaultListModel<String> model = new DefaultListModel<>();
-        for (String s : input.getSteps().split("\n"))
-            model.addElement(s);
-        list1.setModel(model);
-        scenarioSteps.setText(new Integer(input.getStepsCount()).toString());
-        scenarioCond.setText(new Integer(input.getConditionalDecisionCount()).toString());
+        textArea1.setText(input.getSteps());
+        scenarioSteps.setText(Integer.toString(input.getStepsCount()));
+        scenarioCond.setText(Integer.toString(input.getConditionalDecisionCount()));
+        Integer[] levels = IntStream.range(0,10).boxed().toArray(Integer[]::new);
     }
 
     private void createUIComponents() {
