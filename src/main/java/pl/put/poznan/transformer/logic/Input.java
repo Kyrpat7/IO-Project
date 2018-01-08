@@ -251,4 +251,23 @@ public class Input
 
         return ret.toString();
     }
+
+    public int getMaxDepth()
+    {
+        String[] arr = steps.split("\n");
+
+        int max = 0;
+
+        for (String i : arr) {
+            int count = 0;
+
+            while (i.charAt(count) == '\t')
+                ++count;
+
+            max = Math.max(max, count);
+        }
+
+        return max;
+    }
+
 }
