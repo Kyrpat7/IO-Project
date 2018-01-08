@@ -35,6 +35,7 @@ public class MainWindow {
     private JLabel scenarioCond;
     private JLabel scenarioStepsLabel;
     private JTextArea textArea1;
+    private JButton ograniczButton;
     private JTextPane textPane1;
     private File file;
 
@@ -70,6 +71,10 @@ public class MainWindow {
                     textArea1.append(s);
             }
         });
+        ograniczButton.addActionListener(e -> {
+            if ((int)levelSelectionBox.getSelectedItem() != 0)
+                textArea1.setText(input.getSubScenarios(textArea1.getText().split("\n"), (int)levelSelectionBox.getSelectedItem()));
+        });
     }
 
     public static void main(String[] args) {
@@ -87,7 +92,10 @@ public class MainWindow {
         textArea1.setText(input.getSteps());
         scenarioSteps.setText(Integer.toString(input.getStepsCount()));
         scenarioCond.setText(Integer.toString(input.getConditionalDecisionCount()));
-        Integer[] levels = IntStream.range(0,10).boxed().toArray(Integer[]::new);
+        levelSelectionBox.removeAllItems();
+        System.out.println(input.getMaxDepth());
+        for (int i = 0; i <= input.getMaxDepth() + 1; i++)
+            levelSelectionBox.addItem(i);
     }
 
     private void createUIComponents() {
