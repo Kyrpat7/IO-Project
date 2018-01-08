@@ -234,7 +234,7 @@ public class Input
 
     public String getSubScenarios(String[] steps, int depth)
     {
-        String ret = "";
+        StringBuilder ret = new StringBuilder();
 
         for (String i : steps)
         {
@@ -243,10 +243,12 @@ public class Input
             while (i.charAt(count) == '\t')
                 ++count;
 
-            if (count < (depth - 1))
-                ret += i;
+            if (count < depth) {
+                ret.append(i);
+                ret.append("\n");
+            }
         }
 
-        return ret;
+        return ret.toString();
     }
 }
