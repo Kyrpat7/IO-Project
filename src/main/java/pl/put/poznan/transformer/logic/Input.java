@@ -3,6 +3,7 @@ package pl.put.poznan.transformer.logic;
 import java.io.*;
 import java.util.ArrayList;
 
+
 public class Input
 {
     private String title;
@@ -14,6 +15,12 @@ public class Input
         add("FOR EACH");
     }};
 
+
+    /**
+     * Wczytuje scenariusz z pliku tekstowego
+     *
+     * @param fileName nazwa pliku z ktorego ma zostac wczytany scenariusz
+     */
     public Input(String fileName)
     {
         actors = new ArrayList<String>();
@@ -140,4 +147,44 @@ public class Input
 
         return result;
     }
+
+
+    public String getNumberedSteps()
+    {
+        int max = steps.split("\n").length;
+        int[] tab = new int[max];
+        for (int i = 0; i < max; i++)
+            tab[i] = 0;
+        String result = "";
+
+        result += title + "\n";
+        for (String a : actors)
+            result += a + " ";
+        result += "\n";
+
+        for (String step : steps.split("\n"))
+        {
+            int p = 0;
+            String numbers = "";
+            while((step.charAt(p))== '\t')
+                {
+                    p++;
+                }
+            tab[p]++;
+            for (int i = p + 1; i < max; i++)
+            tab[i] = 0;
+            StringBuilder bufferedText = new StringBuilder(step);
+            for(int i = 0; i < p + 1; i++)
+                {
+                   numbers = numbers + tab[i] + ".";
+                }
+            bufferedText.insert(p,numbers);
+            step = bufferedText.substring(0)+"\n";
+
+            result = result + step;
+        }
+        return result;
+    }
+//koment
+
 }
