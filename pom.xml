@@ -71,7 +71,7 @@
                 <version>2.9</version>
                 <executions>
                     <execution>
-                        <id>attach-javadocs</id>
+                        <id>attach-javadoc</id>
                         <goals>
                             <goal>jar</goal>
                         </goals>
