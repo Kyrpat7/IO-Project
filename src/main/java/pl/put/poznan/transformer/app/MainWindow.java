@@ -109,11 +109,7 @@ public class MainWindow {
         System.out.println(input.getMaxDepth());
         for (int i = 0; i <= input.getMaxDepth() + 1; i++)
             levelSelectionBox.addItem(i);
-    }
-
-    private void createUIComponents() {
-        Integer[] numbers = IntStream.range(0, 10).boxed().toArray(Integer[]::new);
-        levelSelectionBox = new JComboBox<>(numbers);
+        levelSelectionBox.setEnabled(true);
     }
 
     /**
@@ -124,7 +120,6 @@ public class MainWindow {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        createUIComponents();
         mainPanel = new JPanel();
         mainPanel.setLayout(new GridLayoutManager(2, 2, new Insets(0, 0, 0, 0), -1, -1));
         bottomPanel = new JPanel();
@@ -164,6 +159,8 @@ public class MainWindow {
         levelSelectionLabel = new JLabel();
         levelSelectionLabel.setText("Ogranicz do poziomu:");
         rightPanel.add(levelSelectionLabel, new GridConstraints(2, 0, 2, 1, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_FIXED, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        levelSelectionBox = new JComboBox();
+        levelSelectionBox.setEnabled(false);
         rightPanel.add(levelSelectionBox, new GridConstraints(2, 1, 2, 3, GridConstraints.ANCHOR_WEST, GridConstraints.FILL_HORIZONTAL, GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, new Dimension(50, -1), null, null, 0, false));
         scenarioStepsLabel = new JLabel();
         scenarioStepsLabel.setText("Liczba kroków:");
