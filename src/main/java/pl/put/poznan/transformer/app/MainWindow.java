@@ -112,7 +112,6 @@ public class MainWindow {
      * >>> IMPORTANT!! <<<
      * DO NOT edit this method OR call it in your code!
      *
-     * @noinspection ALL
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
@@ -173,7 +172,6 @@ public class MainWindow {
     }
 
     /**
-     * @noinspection ALL
      */
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
