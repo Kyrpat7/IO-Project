@@ -73,6 +73,7 @@ public class MainWindow {
 
         pobierzKrokiNieZaczynajaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
+                textArea1.setText("");
                 for (String s : input.getBuggableLines())
                     textArea1.append(s);
             }
