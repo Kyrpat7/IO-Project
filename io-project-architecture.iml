@@ -73,15 +73,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: net.minidev:accessors-smart:1.1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.ow2.asm:asm:5.0.3" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
-    <orderEntry type="library" name="Maven: com.intellij:javac2:7.0.3" level="project" />
-    <orderEntry type="library" name="Maven: asm:asm-commons:3.0" level="project" />
-    <orderEntry type="library" name="Maven: asm:asm-tree:3.0" level="project" />
-    <orderEntry type="library" name="Maven: asm:asm:3.0" level="project" />
-    <orderEntry type="library" name="Maven: jdom:jdom:1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant:1.7.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.ant:ant-launcher:1.7.0" level="project" />
-    <orderEntry type="library" name="Maven: com.jgoodies:forms:1.1-preview" level="project" />
-    <orderEntry type="library" name="Maven: com.intellij:forms_rt:7.0.3" level="project" />
-    <orderEntry type="library" name="Maven: com.intellij:asm-all:17.1.5" level="project" />
   </component>
 </module>
