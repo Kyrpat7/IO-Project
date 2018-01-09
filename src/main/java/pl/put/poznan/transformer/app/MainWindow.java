@@ -89,8 +89,10 @@ public class MainWindow {
     }
 
     public static void main(String[] args) {
+        MainWindow mainWindow = new MainWindow();
         JFrame frame = new JFrame("Analizator Scenariuszy");
-        frame.setContentPane(new MainWindow().mainPanel);
+        //frame.setContentPane(new MainWindow().mainPanel);
+        frame.setContentPane(mainWindow.mainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
