@@ -44,27 +44,36 @@ public class MainWindow {
 
     public MainWindow() {
         $$$setupUI$$$();
-        wczytajButton.addActionListener(actionEvent -> {
-            fc = new JFileChooser();
-            FileNameExtensionFilter filter = new FileNameExtensionFilter("Plik tekstowy (*.txt)", "txt");
-            fc.setAcceptAllFileFilterUsed(false);
-            fc.setFileFilter(filter);
-            int returnVal = fc.showDialog(mainPanel, "Wybierz plik");
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                file = fc.getSelectedFile();
-                System.out.println("Otwieranie pliku " + file);
-                loadFile(file);
-            } else {
-                System.out.println("Anulowano otwieranie pliku");
+        wczytajButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                fc = new JFileChooser();
+                FileNameExtensionFilter filter = new FileNameExtensionFilter("Plik tekstowy (*.txt)", "txt");
+                fc.setAcceptAllFileFilterUsed(false);
+                fc.setFileFilter(filter);
+                int returnVal = fc.showDialog(mainPanel, "Wybierz plik");
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    file = fc.getSelectedFile();
+                    System.out.println("Otwieranie pliku " + file);
+                    MainWindow.this.loadFile(file);
+                } else {
+                    System.out.println("Anulowano otwieranie pliku");
+                }
             }
         });
 
-        podglądScenariuszaButton.addActionListener(e -> {
-            textArea1.setText(input.getSteps());
+        podglądScenariuszaButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea1.setText(input.getSteps());
+            }
         });
 
-        pobierzZNumeracjąKrokówButton.addActionListener(e -> {
-            textArea1.setText(input.getNumberedSteps());
+        pobierzZNumeracjąKrokówButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                textArea1.setText(input.getNumberedSteps());
+            }
         });
 
         pobierzKrokiNieZaczynająceButton.addActionListener(new ActionListener() {
