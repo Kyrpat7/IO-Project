@@ -26,6 +26,7 @@ public class ScenarioGUI {
     private JButton bledneKrokiButton;
     private JButton ograniczButton;
     private JLabel titleLabel;
+    private JPanel rightPanel;
 
     Input input;
     JFileChooser fc;
@@ -117,7 +118,6 @@ public class ScenarioGUI {
      * >>> IMPORTANT!! <<<
      * DO NOT edit this method OR call it in your code!
      *
-     * @noinspection ALL
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
@@ -249,9 +249,6 @@ public class ScenarioGUI {
         mainPanel.add(titleLabel, gbc);
     }
 
-    /**
-     * @noinspection ALL
-     */
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
     }
