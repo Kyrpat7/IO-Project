@@ -6,13 +6,10 @@ import pl.put.poznan.transformer.logic.Input;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.plaf.ComboBoxUI;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.FileFilter;
-import java.util.stream.IntStream;
 
 /**
  * Created by Kuba on 28.12.2017.
@@ -22,27 +19,25 @@ public class MainWindow {
     private JPanel mainPanel;
     private Input input;
     private JButton wczytajButton;
-    private JButton podglądScenariuszaButton;
+    private JButton podgladScenariuszaButton;
     private JPanel bottomPanel;
     private JPanel topPanel;
-    private JList<String> list1;
     private JLabel scenarioTitle;
     private JScrollPane scrollPane;
     private JLabel scenarioLevelsLabel;
     private JLabel scenarioSteps;
     private JLabel levelSelectionLabel;
-    private JComboBox levelSelectionBox;
+    private JComboBox<Integer> levelSelectionBox;
     private JPanel rightPanel;
-    private JButton pobierzKrokiNieZaczynająceButton;
-    private JButton pobierzZNumeracjąKrokówButton;
+    private JButton pobierzKrokiNieZaczynajaceButton;
+    private JButton pobierzZNumeracjaKrokowButton;
     private JLabel scenarioCond;
     private JLabel scenarioStepsLabel;
     private JTextArea textArea1;
     private JButton ograniczButton;
-    private JTextPane textPane1;
     private File file;
 
-    public MainWindow() {
+    private MainWindow() {
         $$$setupUI$$$();
         wczytajButton.addActionListener(new ActionListener() {
             @Override
@@ -62,21 +57,21 @@ public class MainWindow {
             }
         });
 
-        podglądScenariuszaButton.addActionListener(new ActionListener() {
+        podgladScenariuszaButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea1.setText(input.getSteps());
             }
         });
 
-        pobierzZNumeracjąKrokówButton.addActionListener(new ActionListener() {
+        pobierzZNumeracjaKrokowButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea1.setText(input.getNumberedSteps());
             }
         });
 
-        pobierzKrokiNieZaczynająceButton.addActionListener(new ActionListener() {
+        pobierzKrokiNieZaczynajaceButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 for (String s : input.getBuggableLines())
                     textArea1.append(s);
@@ -93,7 +88,7 @@ public class MainWindow {
         JFrame frame = new JFrame("Analizator Scenariuszy");
         //frame.setContentPane(new MainWindow().mainPanel);
         frame.setContentPane(mainWindow.mainPanel);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
@@ -128,15 +123,15 @@ public class MainWindow {
         wczytajButton = new JButton();
         wczytajButton.setText("Wczytaj");
         bottomPanel.add(wczytajButton, new GridConstraints(0, 0, 4, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        podglądScenariuszaButton = new JButton();
-        podglądScenariuszaButton.setText("Podgląd scenariusza");
-        bottomPanel.add(podglądScenariuszaButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        pobierzKrokiNieZaczynająceButton = new JButton();
-        pobierzKrokiNieZaczynająceButton.setText("Pobierz kroki nie zaczynające się od aktora");
-        bottomPanel.add(pobierzKrokiNieZaczynająceButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        pobierzZNumeracjąKrokówButton = new JButton();
-        pobierzZNumeracjąKrokówButton.setText("Pobierz z numeracją kroków");
-        bottomPanel.add(pobierzZNumeracjąKrokówButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        podgladScenariuszaButton = new JButton();
+        podgladScenariuszaButton.setText("Podgląd scenariusza");
+        bottomPanel.add(podgladScenariuszaButton, new GridConstraints(0, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pobierzKrokiNieZaczynajaceButton = new JButton();
+        pobierzKrokiNieZaczynajaceButton.setText("Pobierz kroki nie zaczynające się od aktora");
+        bottomPanel.add(pobierzKrokiNieZaczynajaceButton, new GridConstraints(2, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        pobierzZNumeracjaKrokowButton = new JButton();
+        pobierzZNumeracjaKrokowButton.setText("Pobierz z numeracją kroków");
+        bottomPanel.add(pobierzZNumeracjaKrokowButton, new GridConstraints(1, 1, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_NONE, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         topPanel = new JPanel();
         topPanel.setLayout(new GridLayoutManager(2, 1, new Insets(5, 5, 0, 0), -1, -1));
         mainPanel.add(topPanel, new GridConstraints(0, 0, 1, 1, GridConstraints.ANCHOR_CENTER, GridConstraints.FILL_BOTH, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, GridConstraints.SIZEPOLICY_CAN_SHRINK | GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
