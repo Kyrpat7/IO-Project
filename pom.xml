@@ -40,11 +40,6 @@
             <artifactId>javac2</artifactId>
             <version>LATEST</version>
         </dependency>
-        <dependency>
-            <groupId>com.intellij</groupId>
-            <artifactId>asm-all</artifactId>
-            <version>LATEST</version>
-        </dependency>
     </dependencies>
 
     <properties>
