@@ -6,13 +6,13 @@ import java.util.List;
 
 import static org.junit.Assert.*;
 
-public class InputTest {
+public class ScenarioTest {
 
-    private Input input;
+    private Scenario scenario;
 
     @Before
     public void setUp() {
-        input = new Input("src/test/resources/data.txt");
+        scenario = new Scenario("src/test/resources/data.txt");
     }
 
     @Test
@@ -21,12 +21,12 @@ public class InputTest {
 
     @Test
     public void getTitleTest() {
-        assertEquals("Scenariusz", input.getTitle());
+        assertEquals("Scenariusz", scenario.getTitle());
     }
 
     @Test
     public void getActorsTest() {
-        List<String> ret = input.getActors();
+        List<String> ret = scenario.getActors();
 
         assertEquals(2, ret.size());
         assertEquals("BIBLIOTEKARZ", ret.get(0));
@@ -39,17 +39,17 @@ public class InputTest {
 
     @Test
     public void getStepsCountTest() {
-        assertEquals(13, input.getStepsCount());
+        assertEquals(13, scenario.getStepsCount());
     }
 
     @Test
     public void getConditionalDecisionCountTest() {
-        assertEquals(2, input.getConditionalDecisionCount());
+        assertEquals(2, scenario.getConditionalDecisionCount());
     }
 
     @Test
     public void getBuggableLinesTest() {
-        List<String> ret= input.getBuggableLines();
+        List<String> ret= scenario.getBuggableLines();
 
         assertEquals(2, ret.size());
         assertEquals("Wyświetla się formularz.", ret.get(0));

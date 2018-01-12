@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Implementation-Version: 0.1
+Built-By: pc
+Implementation-Vendor-Id: pl.put.poznan
+Class-Path: spring-boot-starter-web-1.5.9.RELEASE.jar spring-boot-star
+ ter-1.5.9.RELEASE.jar spring-boot-1.5.9.RELEASE.jar spring-boot-autoc
+ onfigure-1.5.9.RELEASE.jar spring-boot-starter-logging-1.5.9.RELEASE.
+ jar logback-classic-1.1.11.jar logback-core-1.1.11.jar jcl-over-slf4j
+ -1.7.25.jar jul-to-slf4j-1.7.25.jar log4j-over-slf4j-1.7.25.jar snake
+ yaml-1.17.jar spring-boot-starter-tomcat-1.5.9.RELEASE.jar tomcat-emb
+ ed-core-8.5.23.jar tomcat-annotations-api-8.5.23.jar tomcat-embed-el-
+ 8.5.23.jar tomcat-embed-websocket-8.5.23.jar hibernate-validator-5.3.
+ 6.Final.jar validation-api-1.1.0.Final.jar jboss-logging-3.3.1.Final.
+ jar classmate-1.3.4.jar jackson-databind-2.8.10.jar jackson-annotatio
+ ns-2.8.0.jar jackson-core-2.8.10.jar spring-web-4.3.13.RELEASE.jar sp
+ ring-aop-4.3.13.RELEASE.jar spring-beans-4.3.13.RELEASE.jar spring-co
+ ntext-4.3.13.RELEASE.jar spring-webmvc-4.3.13.RELEASE.jar spring-expr
+ ession-4.3.13.RELEASE.jar spring-core-4.3.13.RELEASE.jar slf4j-api-1.
+ 7.25.jar
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_131
+Main-Class: pl.put.poznan.transformer.app.ScenarioGUI
+

@@ -1,6 +1,6 @@
 package pl.put.poznan.transformer.app;
 
-import pl.put.poznan.transformer.logic.Input;
+import pl.put.poznan.transformer.logic.Scenario;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -28,7 +28,7 @@ public class ScenarioGUI {
     private JLabel titleLabel;
     private JPanel rightPanel;
 
-    Input input;
+    Scenario scenario;
     JFileChooser fc;
     File file;
     private boolean numbered = false;
@@ -54,14 +54,14 @@ public class ScenarioGUI {
         numerowanyButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea1.setText(input.getNumberedSteps());
+                textArea1.setText(scenario.toNumberedString());
                 numbered = true;
             }
         });
         wyświetlButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea1.setText(input.getSteps());
+                textArea1.setText(scenario.toString());
                 numbered = false;
             }
         });
@@ -69,7 +69,7 @@ public class ScenarioGUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 textArea1.setText("");
-                for (String s : input.getBuggableLines())
+                for (String s : scenario.getBuggableLines())
                     textArea1.append(s + "\n");
                 numbered = false;
             }
@@ -77,21 +77,21 @@ public class ScenarioGUI {
         ograniczButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                textArea1.setText(input.getSubScenarios(numbered ? input.getNumberedSteps().split("\n")
-                        : input.getSteps().split("\n"), (int) levelSelector.getSelectedItem()));
+                textArea1.setText(scenario.getSubScenarios(numbered ? scenario.toNumberedString().split("\n")
+                        : scenario.toString().split("\n"), (int) levelSelector.getSelectedItem()));
             }
         });
     }
 
     private void loadFile(File file) {
-        input = new Input(file.toString());
-        titleLabel.setText(input.getTitle());
-        textArea1.setText(input.getSteps());
-        stepsCount.setText(Integer.toString(input.getStepsCount()));
-        conditionalsCount.setText(Integer.toString(input.getConditionalDecisionCount()));
+        scenario = new Scenario(file.toString());
+        titleLabel.setText(scenario.getTitle());
+        textArea1.setText(scenario.toString());
+        stepsCount.setText(Integer.toString(scenario.getStepsCount()));
+        conditionalsCount.setText(Integer.toString(scenario.getConditionalDecisionCount()));
         levelSelector.removeAllItems();
-        System.out.println(input.getMaxDepth());
-        for (int i = 0; i <= input.getMaxDepth() + 1; i++)
+        System.out.println(scenario.getMaxDepth());
+        for (int i = 0; i <= scenario.getMaxDepth() + 1; i++)
             levelSelector.addItem(i);
         levelSelector.setEnabled(true);
         numbered = false;
@@ -118,6 +118,7 @@ public class ScenarioGUI {
      * >>> IMPORTANT!! <<<
      * DO NOT edit this method OR call it in your code!
      *
+     * @noinspection ALL
      */
     private void $$$setupUI$$$() {
         mainPanel = new JPanel();
@@ -182,48 +183,48 @@ public class ScenarioGUI {
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         leftPanel.add(wczytajButton, gbc);
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new GridBagLayout());
+        rightPanel = new JPanel();
+        rightPanel.setLayout(new GridBagLayout());
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.fill = GridBagConstraints.BOTH;
-        mainPanel.add(panel1, gbc);
+        mainPanel.add(rightPanel, gbc);
         conditionalsLabel = new JLabel();
         conditionalsLabel.setText("Liczba instrukcji warunkowych:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(conditionalsLabel, gbc);
+        rightPanel.add(conditionalsLabel, gbc);
         stepsLabel = new JLabel();
         stepsLabel.setText("Liczba kroków:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(stepsLabel, gbc);
+        rightPanel.add(stepsLabel, gbc);
         stepsCount = new JLabel();
-        stepsCount.setText("0cxc");
+        stepsCount.setText("0");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 1;
         gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(stepsCount, gbc);
+        rightPanel.add(stepsCount, gbc);
         conditionalsCount = new JLabel();
         conditionalsCount.setText("0");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(conditionalsCount, gbc);
+        rightPanel.add(conditionalsCount, gbc);
         limitLabel = new JLabel();
         limitLabel.setText("Stopień scenariusza:");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.WEST;
-        panel1.add(limitLabel, gbc);
+        rightPanel.add(limitLabel, gbc);
         levelSelector = new JComboBox();
         levelSelector.setEnabled(false);
         levelSelector.setPreferredSize(new Dimension(60, 24));
@@ -232,23 +233,25 @@ public class ScenarioGUI {
         gbc.gridy = 2;
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(levelSelector, gbc);
+        rightPanel.add(levelSelector, gbc);
         ograniczButton = new JButton();
         ograniczButton.setText("Ogranicz");
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 3;
         gbc.fill = GridBagConstraints.HORIZONTAL;
-        panel1.add(ograniczButton, gbc);
+        rightPanel.add(ograniczButton, gbc);
         titleLabel = new JLabel();
         titleLabel.setText("Scenariusz");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.gridwidth = 2;
         mainPanel.add(titleLabel, gbc);
     }
 
+    /**
+     * @noinspection ALL
+     */
     public JComponent $$$getRootComponent$$$() {
         return mainPanel;
     }

@@ -4,11 +4,12 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-public class Input
+public class Scenario
 {
+    Presenter presenter;
     private String title;
     private ArrayList<String> actors;
-    private String steps;
+    private ArrayList<Step> steps;
     final private ArrayList<String> keywords = new ArrayList<String>(){{
         add("IF");
         add("ELSE");
@@ -21,10 +22,11 @@ public class Input
      *
      * @param fileName nazwa pliku z ktorego ma zostac wczytany scenariusz
      */
-    public Input(String fileName)
+    public Scenario(String fileName)
     {
         actors = new ArrayList<String>();
-        steps = "";
+        steps = new ArrayList<Step>();
+        presenter = new Presenter();
 
         try
         {
@@ -39,8 +41,10 @@ public class Input
                 else if (n == 1) {
                     for (String actor : line.split(" "))
                         actors.add(actor.toUpperCase());
-                } else
-                    steps += line + "\n";
+                } else {
+                    Step step = new Step(line + "\n");
+                    steps.add(step);
+                }
 
                 n += 1;
             }
@@ -66,10 +70,12 @@ public class Input
         String result = "";
 
         result += title + "\n";
+
         for (String a : actors)
             result += a + " ";
         result += "\n";
-        result += steps;
+
+        result += getSteps();
 
         return result;
     }
@@ -98,7 +104,12 @@ public class Input
      */
     public String getSteps()
     {
-        return steps;
+        String result = "";
+
+        for (Visitable step : steps)
+            result += step.accept(presenter);
+
+        return result;
     }
 
     /**
@@ -107,7 +118,7 @@ public class Input
      */
     public int getStepsCount()
     {
-        return steps == "" ? 0 : steps.split("\n").length;
+        return steps.size() == 0 ? 0 : steps.size();
     }
 
     /**
@@ -134,9 +145,9 @@ public class Input
     {
         int count = 0;
 
-        for (String step : steps.split("\n"))
+        for (Step step : steps)
         {
-            if (containsKeyword(step.toUpperCase()))
+            if (containsKeyword(step.getLine()))
                 count++;
         }
 
@@ -182,10 +193,10 @@ public class Input
     {
         ArrayList<String> result = new ArrayList<String>();
 
-        for (String step : steps.split("\n"))
+        for (Step step : steps)
         {
-            if (!containsKeyword(step) && !startsWithActor(filterLine(step)))
-                result.add(filterLine(step));
+            if (!containsKeyword(step.getLine()) && !startsWithActor(filterLine(step.getLine())))
+                result.add(filterLine(step.getLine()));
         }
 
         return result;
@@ -195,12 +206,14 @@ public class Input
      * Zwraca ponumerowane kroki scenariusza
      *
      */
-    public String getNumberedSteps()
+    public String toNumberedString()
     {
-        int max = steps.split("\n").length;
+        int max = steps.size();
         int[] tab = new int[max];
+
         for (int i = 0; i < max; i++)
             tab[i] = 0;
+
         String result = "";
 
         result += title + "\n";
@@ -208,27 +221,28 @@ public class Input
             result += a + " ";
         result += "\n";
 
-        for (String step : steps.split("\n"))
+        for (Step step : steps)
         {
             int p = 0;
             String numbers = "";
-            while((step.charAt(p))== '\t')
-            {
+
+            while((step.getLine().charAt(p))== '\t')
                 p++;
-            }
+
             tab[p]++;
+
             for (int i = p + 1; i < max; i++)
                 tab[i] = 0;
-            StringBuilder bufferedText = new StringBuilder(step);
-            for(int i = 0; i < p + 1; i++)
-            {
-                numbers = numbers + tab[i] + ".";
-            }
-            bufferedText.insert(p,numbers);
-            step = bufferedText.substring(0)+"\n";
 
-            result = result + step;
+            StringBuilder bufferedText = new StringBuilder(step.getLine());
+            for(int i = 0; i < p + 1; i++)
+                numbers = numbers + tab[i] + ".";
+
+            bufferedText.insert(p,numbers);
+
+            result += bufferedText.toString();
         }
+
         return result;
     }
 
@@ -254,14 +268,12 @@ public class Input
 
     public int getMaxDepth()
     {
-        String[] arr = steps.split("\n");
-
         int max = 0;
 
-        for (String i : arr) {
+        for (Step step : steps) {
             int count = 0;
 
-            while (i.charAt(count) == '\t')
+            while (step.getLine().charAt(count) == '\t')
                 ++count;
 
             max = Math.max(max, count);
