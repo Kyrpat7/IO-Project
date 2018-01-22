@@ -16,11 +16,18 @@ public class PresenterTest {
         p = new Presenter();
 
         my_step = mock(Step.class);
-        when(my_step.getLine()).thenReturn("Test step");
+
     }
 
     @Test
-    public void visit() {
+    public void visit_test1() {
+        when(my_step.getLine()).thenReturn("Test step");
         assertEquals("Test step", p.visit(my_step));
+    }
+
+    @Test
+    public void visit_test2() {
+        when(my_step.getLine()).thenReturn("Ultra super test line");
+        assertEquals("Ultra super test line", p.visit(my_step));
     }
 }
