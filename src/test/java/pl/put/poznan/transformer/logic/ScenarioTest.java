@@ -52,6 +52,6 @@ public class ScenarioTest {
         List<String> ret= scenario.getBuggableLines();
 
         assertEquals(1, ret.size());
-        assertEquals("Wyświetla się formularz.", ret.get(0));
+        assertEquals("Wyświetla się formularz.\n", ret.get(0));
     }
 }
